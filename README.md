@@ -38,14 +38,14 @@ for geoType in geoTypes:
         break
 ```
 Unser Ziel dabei ist, die gesamte, die größte, umfassende Geometrie zu extrahieren. Z.b. suchen wir zuerst nach einem 'gml:MultiSurface'. Gibt es das nicht, suchen wir nach einem 'gml:Surface'. Diese Vorgehensweise ist natürlich mit einem gewissen Risiko verbunden. Man muss schon genau wissen, was für Geometrie-Elemente im GML-File vorkommen. Bei dem RoadTransportNetwork GML-File aus dem okstra2inspire Konverter funktioniert das recht gut *(enthält nur gml:LineString und gml:Point)*. Der Ladevorgang dieses 350 MB großen GML-Files dauert knapp 5 min *(Quad 2,70 GHz Intel Xeon, 32GB Memory)*. Damit ist mit diesem Ansatz der Zweck eigentlich schon erfüllt.
+
+Wollen wir den Loader aber für GML-Files aller INSPIRE Themen verwenden, dann müssen wir noch etwas nachrüsten. Das ist mit der Methode 'loadGml' erfolgt. Dazu benutzen wir den GDAL [GMLAS-Driver](https://gdal.org/drivers/vector/gmlas.html#vector-gmlas) *(Installation von z.B. gdal-204-1911-x64-core.msi und GDAL-2.4.0.win-amd64-py3.7.msi erforderlich)*. Der Driver löst das ursprüngliche GML-File auf, er zerstört die GML-Struktur. Deshalb verwenden wir ihn nur dazu, die 'gml_id' und die Geometrie (Extent) in ein Dictionary zu speichern. Aus diesem Dictionary holen wir uns dann für jedes Objekt seinen Extent, um ihn in das Attribut 'gml_bounded_by' einzufügen. Ich habe den Loader nicht an dem 350 MB RoadTransportNetwork GML-File getestet. Die Rechenzeit dürfte aber so um den Faktor 6 länger sein.
 ```
 #Hinweis: ggf. muss noch der Proxy gesetzt werden!
 
 from osgeo import gdal
 gdal.SetConfigOption('GDAL_HTTP_PROXY', '111.11.111.111:80')
 ```
-Wollen wir den Loader aber für GML-Files aller INSPIRE Themen verwenden, dann müssen wir noch etwas nachrüsten. Das ist mit der Methode 'loadGml' erfolgt. Dazu benutzen wir den GDAL [GMLAS-Driver](https://gdal.org/drivers/vector/gmlas.html#vector-gmlas) *(Installation von z.B. gdal-204-1911-x64-core.msi und GDAL-2.4.0.win-amd64-py3.7.msi erforderlich)*. Der Driver löst das ursprüngliche GML-File auf, er zerstört die GML-Struktur. Deshalb verwenden wir ihn nur dazu, die 'gml_id' und die Geometrie (Extent) in ein Dictionary zu speichern. Aus diesem Dictionary holen wir uns dann für jedes Objekt seinen Extent, um ihn in das Attribut 'gml_bounded_by' einzufügen. Ich habe den Loader nicht an dem 350 MB RoadTransportNetwork GML-File getestet. Die Rechenzeit dürfte aber so um den Faktor 6 länger sein.
-
 Abschließend noch ein kurzer Hinweis auf das [Konfigurationsfile](src/ConfigLoader.xml), indem es auch ein epsg Element gibt. Das GML-File aus dem okstra2inspire Konverter enthält das Attribut srsName=“http://www.opengis.net/def/crs/EPSG/0/3044“. In die Datenbank werden wir es allerdings so einfügen: srsName="EPSG:3044". Die INSPIRE konforme Notation „http://www.opengis.net/def/crs/EPSG/0/...“ führt zur Umdrehung der Interpretation der Polygon Orientierung. Und darauf wollen wir uns gar nicht erst einlassen.
 
 
