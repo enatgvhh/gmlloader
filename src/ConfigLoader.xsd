@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- W3C Schema erstellt mit XMLSpy v2019 (x64) (http://www.altova.com) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="ConfigObject">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sourcefile"/>
+				<xs:element ref="logfile"/>
+				<xs:element ref="databaseconnection"/>
+				<xs:element ref="epsg"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="databaseconnection">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dbname"/>
+				<xs:element ref="user"/>
+				<xs:element ref="host"/>
+				<xs:element ref="port"/>
+				<xs:element ref="password"/>
+				<xs:element ref="schema"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dbname">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="desturl">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="epsg">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sourceurl"/>
+				<xs:element ref="desturl"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="host">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="logfile">
+		<xs:simpleType>
+			<xs:restriction base="xs:anyURI"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="password">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="port">
+		<xs:simpleType>
+			<xs:restriction base="xs:short"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="schema">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="sourcefile">
+		<xs:simpleType>
+			<xs:restriction base="xs:anyURI"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="sourceurl">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="user">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>

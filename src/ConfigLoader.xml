@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConfigObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ConfigLoader.xsd">
+	<sourcefile>D:\GMLAS\PlannedLandUse.gml</sourcefile>
+	<logfile>D:\GMLAS\logger.log</logfile>
+	<databaseconnection>
+		<dbname>testDB</dbname>
+		<user>tester</user>
+		<host>host</host>
+		<port>5432</port>
+		<password>tester</password>
+		<schema>test</schema>
+	</databaseconnection>
+	<epsg>
+		<sourceurl>http://www.opengis.net/def/crs/EPSG/0/</sourceurl>
+		<desturl>EPSG:</desturl>
+	</epsg>
+</ConfigObject>
