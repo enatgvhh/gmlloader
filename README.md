@@ -39,7 +39,8 @@ for geoType in geoTypes:
 ```
 Unser Ziel dabei ist, die gesamte, die größte, umfassende Geometrie zu extrahieren. Z.b. suchen wir zuerst nach einem 'gml:MultiSurface'. Gibt es das nicht, suchen wir nach einem 'gml:Surface'. Diese Vorgehensweise ist natürlich mit einem gewissen Risiko verbunden. Man muss schon genau wissen, was für Geometrie-Elemente im GML-File vorkommen. Bei dem RoadTransportNetwork GML-File aus dem okstra2inspire Konverter funktioniert das recht gut *(enthält nur gml:LineString und gml:Point)*. Der Ladevorgang dieses 350 MB großen GML-Files dauert knapp 5 min *(Quad 2,70 GHz Intel Xeon, 32GB Memory)*. Damit ist mit diesem Ansatz der Zweck eigentlich schon erfüllt.
 ```
-Hinweis: ggf. muss noch der Proxy gesetzt werden!
+#Hinweis: ggf. muss noch der Proxy gesetzt werden!
+
 from osgeo import gdal
 gdal.SetConfigOption('GDAL_HTTP_PROXY', '111.11.111.111:80')
 ```
